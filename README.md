@@ -37,36 +37,7 @@ docker run --rm -it \
 
 ---
 
-## 🛠️ 2. Preparar Lambda (empacotar `sharp` para Linux x64)
-
-### Acesse a pasta:
-
-```bash
-cd lambda
-```
-
-### Crie o Dockerfile:
-
-```Dockerfile
-FROM public.ecr.aws/lambda/nodejs18.x as builder
-
-WORKDIR /lambda
-COPY . .
-
-RUN npm install --omit=dev --platform=linux --arch=x64 sharp aws-sdk
-RUN zip -r function.zip .
-```
-
-### Rode o Docker para gerar o `function.zip`:
-
-```bash
-docker build -t lambda-builder .
-docker run --rm -v "$PWD":/lambda lambda-builder
-```
-
----
-
-## ☁️ 3. Criar buckets e Lambda
+## ☁️ 2. Criar buckets e Lambda
 
 ### Criar buckets:
 
@@ -120,7 +91,7 @@ aws --endpoint-url=http://localhost:4566 s3api put-bucket-notification-configura
 
 ---
 
-## 🧩 4. Backend (Node.js + Express)
+## 🧩 3. Backend (Node.js + Express)
 
 ### Acesse:
 
@@ -151,7 +122,7 @@ npx nodemon src/server.js
 
 ---
 
-## 💻 5. Frontend (React + Vite)
+## 💻 4. Frontend (React + Vite)
 
 ### Acesse:
 
@@ -175,7 +146,7 @@ npm run dev
 
 ---
 
-## 🧪 6. Testar fluxo completo
+## 🧪 5. Testar fluxo completo
 
 1. Acesse `http://localhost:5173/upload`
 2. Faça upload de uma imagem
